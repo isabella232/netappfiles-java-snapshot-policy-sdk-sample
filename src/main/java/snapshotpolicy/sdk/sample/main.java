@@ -24,7 +24,7 @@ public class main
 {
     /**
      * Sample console application that executes CRUD management operations on Azure NetApp Files resources
-     * The volume created will use the SMB/CIFS protocol
+     * Showcases how to create and use ANF Snapshot Policy
      * @param args
      */
     public static void main( String[] args )
