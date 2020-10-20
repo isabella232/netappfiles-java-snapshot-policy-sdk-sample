@@ -270,7 +270,7 @@ public class main
           Cleanup process. For this process to take effect please change the value of
           the boolean variable 'cleanup' to 'true'
           The cleanup process starts from the innermost resources down in the hierarchy chain.
-          In this case: Volume -> Snapshot Policy -> Capacity Pool -> Account
+          In this case: Volume -> Capacity Pool -> Snapshot Policy -> Account
           Note that a Snapshot Policy can be used by multiple Volumes, therefore we must first delete the Volume(s)
           using the Snapshot Policy before we can delete the policy itself
         */
@@ -285,17 +285,17 @@ public class main
                 CommonSdk.waitForNoANFResource(anfClient, volume.id(), VolumeInner.class);
                 Utils.writeSuccessMessage("Volume successfully deleted: " + volume.id());
 
-                await(Cleanup.runCleanupTask(anfClient, policyParams, SnapshotPolicyInner.class));
-                CommonSdk.waitForNoANFResource(anfClient, snapshotPolicy.id(), SnapshotPolicyInner.class);
-                Utils.writeSuccessMessage("Snapshot Policy successfully deleted: " + volume.id());
-
                 await(Cleanup.runCleanupTask(anfClient, poolParams, CapacityPoolInner.class));
                 CommonSdk.waitForNoANFResource(anfClient, capacityPool.id(), CapacityPoolInner.class);
-                Utils.writeSuccessMessage("Capacity Pool successfully deleted: " + volume.id());
+                Utils.writeSuccessMessage("Capacity Pool successfully deleted: " + capacityPool.id());
+
+                await(Cleanup.runCleanupTask(anfClient, policyParams, SnapshotPolicyInner.class));
+                CommonSdk.waitForNoANFResource(anfClient, snapshotPolicy.id(), SnapshotPolicyInner.class);
+                Utils.writeSuccessMessage("Snapshot Policy successfully deleted: " + snapshotPolicy.id());
 
                 await(Cleanup.runCleanupTask(anfClient, accountParams, NetAppAccountInner.class));
                 CommonSdk.waitForNoANFResource(anfClient, anfAccount.id(), NetAppAccountInner.class);
-                Utils.writeSuccessMessage("Account successfully deleted: " + volume.id());
+                Utils.writeSuccessMessage("Account successfully deleted: " + anfAccount.id());
             }
             catch (CloudException e)
             {

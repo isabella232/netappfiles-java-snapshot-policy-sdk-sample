@@ -133,6 +133,7 @@ Sample output
 
 ## References
 
+* [Manage snapshots by using Azure NetApp Files](https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-manage-snapshots)
 * [Resource limits for Azure NetApp Files](https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-resource-limits)
 * [Azure Cloud Shell](https://docs.microsoft.com/azure/cloud-shell/quickstart)
 * [Azure NetApp Files documentation](https://docs.microsoft.com/azure/azure-netapp-files/)
