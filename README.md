@@ -8,7 +8,7 @@ products:
 description: "This project demonstrates how to create a Snapshot Policy for Microsoft.NetApp resource provider using Java SDK."
 ---
 
-# Azure NetAppFiles SDK for Java
+# Azure NetAppFiles SDK Sample - Snapshot Policy for Java
 
 This project demonstrates how to use a Java sample application to create a Snapshot Policy for the Microsoft.NetApp
 resource provider.
@@ -39,7 +39,7 @@ If you don't already have a Microsoft Azure subscription, you can get a FREE tri
 1. The sample is written in Java 11. The Maven compiler's target Java version is therefore Java 11, and the JAVA_HOME environment variable must be set to Java 11 or a newer version.
 Instructions on setting JAVA_HOME can be found [here](https://mkyong.com/java/how-to-set-java_home-on-windows-10/) for windows,
 1. Azure subscription
-1. Subscription needs to be whitelisted for Azure NetApp Files. For more information, please refer to
+1. Subscription needs to be enabled for Azure NetApp Files. For more information, please refer to
 [this](https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-register#waitlist) document
 1. Resource Group created
 1. Virtual Network with a delegated subnet to Microsoft.Netapp/volumes resource. For more information. please refer to
