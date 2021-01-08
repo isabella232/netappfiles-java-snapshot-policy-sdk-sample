@@ -11,7 +11,7 @@ description: "This project demonstrates how to create a snapshot policy for Micr
 # Azure NetAppFiles SDK Sample - Snapshot policy for Java
 
 This project demonstrates how to use a Java sample application to create a snapshot policy for the Microsoft.NetApp
-resource provider.
+resource provider. 
 
 In this sample application we perform the following operations:
 
@@ -63,7 +63,7 @@ and [instructions on setting JAVA_HOME for macOS](https://mkyong.com/java/how-to
        >Note: This command will automatically assign RBAC contributor role to the service principal at subscription level.
        You can narrow down the scope to the specific resource group where your tests will create the resources.
 
-    1. Copy the output contents and paste it in a file called azureauth.json, and secure it with file system permissions.
+    1. Copy the output contents and paste it in a file called azureauth.json, and secure it with file system permissions. 
     1. Set an environment variable pointing to the file path you just created. Here is an example with Powershell and bash:
         
         Powershell
