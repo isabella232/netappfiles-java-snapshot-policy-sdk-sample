@@ -5,14 +5,12 @@
 
 package snapshotpolicy.sdk.sample;
 
-import com.microsoft.azure.management.netapp.v2020_06_01.implementation.AzureNetAppFilesManagementClientImpl;
-import com.microsoft.azure.management.netapp.v2020_06_01.implementation.CapacityPoolInner;
-import com.microsoft.azure.management.netapp.v2020_06_01.implementation.NetAppAccountInner;
-import com.microsoft.azure.management.netapp.v2020_06_01.implementation.SnapshotPolicyInner;
-import com.microsoft.azure.management.netapp.v2020_06_01.implementation.VolumeInner;
+import com.azure.resourcemanager.netapp.fluent.NetAppManagementClient;
+import com.azure.resourcemanager.netapp.fluent.models.CapacityPoolInner;
+import com.azure.resourcemanager.netapp.fluent.models.NetAppAccountInner;
+import com.azure.resourcemanager.netapp.fluent.models.SnapshotPolicyInner;
+import com.azure.resourcemanager.netapp.fluent.models.VolumeInner;
 import snapshotpolicy.sdk.sample.common.Utils;
-
-import java.util.concurrent.CompletableFuture;
 
 public class Creation
 {
@@ -24,13 +22,12 @@ public class Creation
      * @param accountBody The Account body used in the creation
      * @return The newly created ANF Account
      */
-    public static CompletableFuture<NetAppAccountInner> createANFAccount(AzureNetAppFilesManagementClientImpl anfClient, String resourceGroup,
-                                                                          String accountName, NetAppAccountInner accountBody)
+    public static NetAppAccountInner createANFAccount(NetAppManagementClient anfClient, String resourceGroup, String accountName, NetAppAccountInner accountBody)
     {
-        NetAppAccountInner anfAccount = anfClient.accounts().createOrUpdate(resourceGroup, accountName, accountBody);
+        NetAppAccountInner anfAccount = anfClient.getAccounts().beginCreateOrUpdate(resourceGroup, accountName, accountBody).getFinalResult();
         Utils.writeSuccessMessage("Account successfully created, resourceId: " + anfAccount.id());
 
-        return CompletableFuture.completedFuture(anfAccount);
+        return anfAccount;
     }
 
     /**
@@ -42,13 +39,13 @@ public class Creation
      * @param policyBody The Snapshot Policy body used in the creation
      * @return The newly create Snapshot Policy
      */
-    public static CompletableFuture<SnapshotPolicyInner> createSnapshotPolicy(AzureNetAppFilesManagementClientImpl anfClient, String resourceGroup,
-                                                                               String accountName, String snapshotPolicyName, SnapshotPolicyInner policyBody)
+    public static SnapshotPolicyInner createSnapshotPolicy(NetAppManagementClient anfClient, String resourceGroup,
+                                                           String accountName, String snapshotPolicyName, SnapshotPolicyInner policyBody)
     {
-        SnapshotPolicyInner snapshotPolicy = anfClient.snapshotPolicies().create(resourceGroup, accountName, snapshotPolicyName, policyBody);
+        SnapshotPolicyInner snapshotPolicy = anfClient.getSnapshotPolicies().create(resourceGroup, accountName, snapshotPolicyName, policyBody);
         Utils.writeSuccessMessage("Snapshot Policy successfully created, resourceId: " + snapshotPolicy.id());
 
-        return CompletableFuture.completedFuture(snapshotPolicy);
+        return snapshotPolicy;
     }
 
     /**
@@ -60,13 +57,12 @@ public class Creation
      * @param poolBody The Capacity Pool body used in the creation
      * @return The newly created Capacity Pool
      */
-    public static CompletableFuture<CapacityPoolInner> createCapacityPool(AzureNetAppFilesManagementClientImpl anfClient, String resourceGroup,
-                                                                           String accountName, String poolName, CapacityPoolInner poolBody)
+    public static CapacityPoolInner createCapacityPool(NetAppManagementClient anfClient, String resourceGroup, String accountName, String poolName, CapacityPoolInner poolBody)
     {
-        CapacityPoolInner capacityPool = anfClient.pools().createOrUpdate(resourceGroup, accountName, poolName, poolBody);
+        CapacityPoolInner capacityPool = anfClient.getPools().beginCreateOrUpdate(resourceGroup, accountName, poolName, poolBody).getFinalResult();
         Utils.writeSuccessMessage("Capacity Pool successfully created, resourceId: " + capacityPool.id());
 
-        return CompletableFuture.completedFuture(capacityPool);
+        return capacityPool;
     }
 
     /**
@@ -79,12 +75,11 @@ public class Creation
      * @param volumeBody The Volume body used in the creation
      * @return The newly created Volume
      */
-    public static CompletableFuture<VolumeInner> createVolume(AzureNetAppFilesManagementClientImpl anfClient, String resourceGroup,
-                                                               String accountName, String poolName, String volumeName, VolumeInner volumeBody)
+    public static VolumeInner createVolume(NetAppManagementClient anfClient, String resourceGroup, String accountName, String poolName, String volumeName, VolumeInner volumeBody)
     {
-        VolumeInner volume = anfClient.volumes().createOrUpdate(resourceGroup, accountName, poolName, volumeName, volumeBody);
+        VolumeInner volume = anfClient.getVolumes().beginCreateOrUpdate(resourceGroup, accountName, poolName, volumeName, volumeBody).getFinalResult();
         Utils.writeSuccessMessage("Volume successfully created, resourceId: " + volume.id());
 
-        return CompletableFuture.completedFuture(volume);
+        return volume;
     }
 }
