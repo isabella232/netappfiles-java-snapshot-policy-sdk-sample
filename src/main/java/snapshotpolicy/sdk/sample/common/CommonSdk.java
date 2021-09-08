@@ -9,6 +9,7 @@ import com.azure.resourcemanager.netapp.fluent.NetAppManagementClient;
 import com.azure.resourcemanager.netapp.fluent.models.CapacityPoolInner;
 import com.azure.resourcemanager.netapp.fluent.models.NetAppAccountInner;
 import com.azure.resourcemanager.netapp.fluent.models.SnapshotInner;
+import com.azure.resourcemanager.netapp.fluent.models.SnapshotPolicyInner;
 import com.azure.resourcemanager.netapp.fluent.models.VolumeInner;
 
 // Contains public methods for SDK related operations
@@ -98,7 +99,7 @@ public class CommonSdk
     {
         for (int i = 0; i < retries; i++)
         {
-            Utils.threadSleep(intervalInSec*2000);
+            Utils.threadSleep(intervalInSec * 1000);
 
             try
             {
@@ -138,6 +139,13 @@ public class CommonSdk
                                 ResourceUriUtils.getAnfVolume(resourceId),
                                 ResourceUriUtils.getAnfSnapshot(resourceId));
                         if (snapshot == null)
+                            return;
+
+                    case "SnapshotPolicyInner":
+                        SnapshotPolicyInner snapshotPolicy = anfClient.getSnapshotPolicies().get(ResourceUriUtils.getResourceGroup(resourceId),
+                                ResourceUriUtils.getAnfAccount(resourceId),
+                                ResourceUriUtils.getAnfSnapshotPolicy(resourceId));
+                        if (snapshotPolicy == null)
                             return;
                 }
             }
