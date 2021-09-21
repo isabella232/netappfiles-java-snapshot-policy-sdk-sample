@@ -6,6 +6,7 @@
 package snapshotpolicy.sdk.sample;
 
 import com.azure.core.credential.TokenCredential;
+import com.azure.core.exception.AzureException;
 import com.azure.core.management.AzureEnvironment;
 import com.azure.core.management.profile.AzureProfile;
 import com.azure.identity.DefaultAzureCredentialBuilder;
@@ -94,7 +95,7 @@ public class main
             {
                 anfAccount = Creation.createANFAccount(manager.serviceClient(), resourceGroupName, anfAccountName, newAccount);
             }
-            catch (Exception e)
+            catch (AzureException e)
             {
                 Utils.writeConsoleMessage("An error occurred while creating account: " + e.getMessage());
                 throw e;
@@ -147,7 +148,7 @@ public class main
             {
                 snapshotPolicy = Creation.createSnapshotPolicy(manager.serviceClient(), resourceGroupName, anfAccountName, snapshotPolicyName, newPolicy);
             }
-            catch (Exception e)
+            catch (AzureException e)
             {
                 Utils.writeConsoleMessage("An error occurred while creating snapshot policy: " + e.getMessage());
                 throw e;
@@ -176,7 +177,7 @@ public class main
             {
                 capacityPool = Creation.createCapacityPool(manager.serviceClient(), resourceGroupName, anfAccountName, capacityPoolName, newCapacityPool);
             }
-            catch (Exception e)
+            catch (AzureException e)
             {
                 Utils.writeConsoleMessage("An error occurred while creating capacity pool: " + e.getMessage());
                 throw e;
@@ -218,7 +219,7 @@ public class main
             {
                 volume = Creation.createVolume(manager.serviceClient(), resourceGroupName, anfAccountName, capacityPoolName, volumeName, newVolume);
             }
-            catch (Exception e)
+            catch (AzureException e)
             {
                 Utils.writeConsoleMessage("An error occurred while creating volume: " + e.getMessage());
                 throw e;
@@ -248,7 +249,7 @@ public class main
         {
             Update.updateSnapshotPolicy(manager.serviceClient(), resourceGroupName, anfAccountName, snapshotPolicyName, snapshotPolicyPatch);
         }
-        catch (Exception e)
+        catch (AzureException e)
         {
             Utils.writeConsoleMessage("An error occurred while updating snapshot policy: " + e.getMessage());
             throw e;
@@ -292,7 +293,7 @@ public class main
                 CommonSdk.waitForNoANFResource(manager.serviceClient(), anfAccount.id(), NetAppAccountInner.class);
                 Utils.writeSuccessMessage("Account successfully deleted: " + anfAccount.id());
             }
-            catch (Exception e)
+            catch (AzureException e)
             {
                 Utils.writeConsoleMessage("An error occurred while deleting resource: " + e.getMessage());
                 throw e;
