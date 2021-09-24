@@ -5,12 +5,10 @@
 
 package snapshotpolicy.sdk.sample;
 
-import com.microsoft.azure.management.netapp.v2020_06_01.SnapshotPolicyPatch;
-import com.microsoft.azure.management.netapp.v2020_06_01.implementation.AzureNetAppFilesManagementClientImpl;
-import com.microsoft.azure.management.netapp.v2020_06_01.implementation.SnapshotPolicyInner;
+import com.azure.resourcemanager.netapp.fluent.NetAppManagementClient;
+import com.azure.resourcemanager.netapp.fluent.models.SnapshotPolicyInner;
+import com.azure.resourcemanager.netapp.models.SnapshotPolicyPatch;
 import snapshotpolicy.sdk.sample.common.Utils;
-
-import java.util.concurrent.CompletableFuture;
 
 public class Update
 {
@@ -23,12 +21,11 @@ public class Update
      * @param policyPatch The Snapshot Policy body used in the update
      * @return The newly updated Snapshot Policy
      */
-    public static CompletableFuture<SnapshotPolicyInner> updateSnapshotPolicy(AzureNetAppFilesManagementClientImpl anfClient, String resourceGroup,
-                                                                              String accountName, String snapshotPolicyName, SnapshotPolicyPatch policyPatch)
+    public static SnapshotPolicyInner updateSnapshotPolicy(NetAppManagementClient anfClient, String resourceGroup, String accountName, String snapshotPolicyName, SnapshotPolicyPatch policyPatch)
     {
-        SnapshotPolicyInner snapshotPolicy = anfClient.snapshotPolicies().update(resourceGroup, accountName, snapshotPolicyName, policyPatch);
+        SnapshotPolicyInner snapshotPolicy = anfClient.getSnapshotPolicies().beginUpdate(resourceGroup, accountName, snapshotPolicyName, policyPatch).getFinalResult();
         Utils.writeSuccessMessage("Snapshot Policy successfully updated");
 
-        return CompletableFuture.completedFuture(snapshotPolicy);
+        return snapshotPolicy;
     }
 }
